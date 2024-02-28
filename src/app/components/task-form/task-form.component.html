@@ -1,0 +1,62 @@
+<h1 class="text-center mt-3">
+  @if (id_tarea) {
+    Modificar tarea
+  }@else {
+    Nueva Tarea
+  }
+</h1>
+
+<div class="container d-flex justify-content-center">
+  <form [formGroup]="frm" (submit)="grabarDatos()" class="w-50 border border-dark-subtle rounded p-5 shadow mt-5" >
+    <div class="mb-3">
+      <label for="titulo" class="form-label">Título</label>
+      <input type="text" class="form-control" id="titulo" formControlName="titulo">
+    </div>
+    <div class="mb-3">
+      <label for="descripcion" class="form-label">Descripción</label>
+      <input type="text" class="form-control" id="descripcion" formControlName="descripcion">
+    </div>
+    <div class="mb-3">
+      <label for="fecha" class="form-label">Fecha de creación</label>
+      <input type="date" class="form-control" id="fecha" formControlName="fecha">
+    </div>
+    <div class="mb-3">
+      <label for="estado" class="form-label">Estado</label>
+      <select name="estado" id="estado" class="form-select" formControlName="estado">
+        <option value="">Seleccione estado...</option>
+        <option value="pendiente">Pendiente</option>
+        <option value="en progreso">En Progreso</option>
+        <option value="completada">Completada</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="usuario" class="form-label">Usuario asignado</label>
+      <select name="usuario" id="usuario" class="form-select" formControlName="id_usuario">
+        <option value="">Seleccione usuario...</option>
+        @for (user of usuarios; track $index) {
+          <option value="{{user._id}}">{{user.nomApe}}</option>
+        }
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="importancia" class="form-label">Importancia</label>
+      <select name="importancia" id="importancia" class="form-select" formControlName="importancia">
+        <option value="">Seleccione importancia...</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="frm.invalid">
+      @if (id_tarea) {
+        <i class="fa-regular fa-floppy-disk"></i> Actualizar
+      }@else {
+        <i class="fa-regular fa-floppy-disk"></i> Guardar
+      }
+
+    </button>
+  </form>
+
+</div>
